@@ -14,8 +14,8 @@ print("ПРИМЕР", "PK2, NO5")
 
 
 shirina = int(input("Введи ширину комноты если нет пиши 0 : "))
-dlina = int(input("Введи длину комнотыесли нет пиши 0: "))
-s_potolok = int(input("Введи площадь комноты:"))
+dlina = int(input("Введи длину комноты если нет пиши 0: "))
+s_potolok = int(input("Введи площадь комноты если нет пиши 0:"))
 zaprose_dop_rabot=input("Дополнительные количество работ :")
 
 print(zaprose_dop_rabot)
@@ -61,15 +61,18 @@ def stoi_pot(razmeri_s_d_pe_pl):#, dopi ):
     numb_baget25= 0 #КРАТНЫ ПАЛКАМ 2,5М
     total = 0
     total += razmeri_s_d_pe_pl["s_potolok_f"] * price["polotnoMDS_320"]
-    numb_baget25 = razmeri_s_d_pe_pl["perimetr_f"]%2.5
+    numb_baget25 = razmeri_s_d_pe_pl["perimetr_f"]//2.5
+
 
 
     # сдвинуть обсчет ниже если есть парящий потолок или \
     # теневой с вычетом длины из периметра и пересчет
     if numb_baget25 == razmeri_s_d_pe_pl["perimetr_f"]/2.5:
-        numb_baget25 *= price["baget"]
+        numb_baget25 = perimetr_f * price["baget"]
     elif numb_baget25 != razmeri_s_d_pe_pl["perimetr_f"]/2.5:
-        numb_baget25= (numb_baget25+1) * price["baget"]
+
+        numb_baget25= ((numb_baget25+1)*2.5) * price["baget"]
+    print("Стоимость багета", numb_baget25)
     total+= numb_baget25
     print("стоимость потолка", total, "руб.")
 
