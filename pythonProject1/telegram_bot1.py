@@ -4,7 +4,7 @@ import telebot
 from aiogram import Bot, types
 from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
-import telebot
+
 # my_test_one_bot
 
 
@@ -46,13 +46,18 @@ import telebot
 #     await message.reply("Привет програмист ")e
 #
 
+#natyznoy_potolok # назвапние бота
+# @natyznoy_potolok_bot
+# token_telegram =6063224285:AAF3eblLJGQiK9BWFtHyntaKRs7UdARASxQ
+# natyznoy_potolok_grup0 # назвапние grup
+
 
 bot = telebot.TeleBot\
     ("6224863591:AAGepg6cRgtv9wh0_Db17_sB_tfD81brgxA")#(faile_config_telgr1.open_weather_token)
 
 @bot.message_handler(content_types=["text"])
 def eho_test(messag):
-    bot.send_message(messag.chat.id, messag.text)
+    bot.send_message(messag.chat.id, messag.text * 6  )# + " hello im popugay"
 
 bot.polling(none_stop =True)
 
