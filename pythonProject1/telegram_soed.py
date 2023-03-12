@@ -1,4 +1,3 @@
-from config import * #open_weather_token
 import requests
 import telebot
 import logging
