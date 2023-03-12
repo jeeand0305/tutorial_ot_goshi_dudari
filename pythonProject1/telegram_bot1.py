@@ -6,45 +6,31 @@ from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
 
 # my_test_one_bot
+TOKEN = "6224863591:AAGepg6cRgtv9wh0_Db17_sB_tfD81brgxA"
 
 
-# def get_weather(city, open_weather_token ):
-#     try:
-#         r=requests.get(
-#             f"http://api.openweathermap.org/geo/1.0/direct?q=\
-# {city}&appid= \
-# {open_weather_token}"
-#         )
-#         data = r.json()
-#         print(data)
-#     # {city name}, {state code}, {country code}
-#     except Exception as ex:
-#         print(ex)
-#         print("Prover name city")
+#____________________________________________________________
+bot = Bot(TOKEN)
+dp = Dispatcher(bot)
 
-# xz no work
-# def  telegram_bot(open_weather_telegram):
-#     bot = telebot.TeleBot(open_weather_telegram)
-#
-#     @bot.message_handlers(commands=["start"])
-#     def start_message(massage):
-#         bot.send_message(message.chat.id, "Hello friend")
+# понять что робот работает
+async def on_startup(_):
+    print("Bot is online")
 
-# ______________________________________________
-# def main():
-#     city = input("Введите город: ")
-#     get_weather(city, open_weather_token)
+# ______________________Клиентская часть-____________________
+@dp.message_handlers(commands=['start', 'help'])
+async def start_command(message:types.Message):
+    try:
+        await bot.send_message(\
+            message.from_user.id, "Привет програмист")
+        await message.delete()
+    except:
+        await message.reply("\
+        Общение с ботом только в ЛС: \
+        \n")
 
-# #probnik po zapusku telegram bota
 
-# ____________________________________________________________
-# bot = Bot(token=open_weather_telegram)
-# dp = Dispatcher(bot)
-#
-# @dp.message_handlers(commands=["start"])
-# async def start_command(message:types.Message):
-#     await message.reply("Привет програмист ")e
-#
+
 
 #natyznoy_potolok # назвапние бота
 # @natyznoy_potolok_bot
@@ -53,7 +39,8 @@ from aiogram.utils import executor
 
 
 bot = telebot.TeleBot\
-    ("6224863591:AAGepg6cRgtv9wh0_Db17_sB_tfD81brgxA")#(faile_config_telgr1.open_weather_token)
+    ("6224863591:AAGepg6cRgtv9wh0_Db17_sB_tfD81brgxA")\
+    #(faile_config_telgr1.open_weather_token)
 
 @bot.message_handler(content_types=["text"])
 def eho_test(messag):
