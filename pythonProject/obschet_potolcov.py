@@ -1,18 +1,7 @@
-
-
-
-price={"PK":2100, "baget":150, "polotnoMDS_320":210,"polotnoMDS_4-5":410,  "NO":500, \
-       "lamp":350, "BL":1000, "vstavka":90, "ugol":60, "truba_st":350  }
-
-
-# print("Краткие обозночение элементов потолка")
-# print("при выборе доп элементов потолка нужно вписать ")
-# print("краткое нименование слитно с количеством ")
-# print("использовать только латинские заглавные буквы")
-# print("ПРИМЕР", "PK2, NO5")
-
-# print( PK )
-
+price = {"PK": 2100, "baget": 150, "polotnoMDS_320": 210,
+         "polotnoMDS_4-5": 410, "NO": 500, "lamp": 350,
+         "BL": 1000, "vstavka": 90, "ugol": 60, "truba_st": 350
+}
 
 shirina = float(input("Введи ширину комноты если нет пиши 0 : "))
 dlina = float(input("Введи длину комноты если нет пиши 0: "))
@@ -31,6 +20,7 @@ def poluchil_tuple_shirnu_dlinu_perim_ploshad():
     ugol_f = ugol
     trub_f = trub
     lite_f = lite
+    perimetr_f=0
     shi_dli_per_plo = {}
     if shirina > 0 and dlina > 0:
         s_potolok_f = dlina_f*shirina_f
@@ -98,7 +88,7 @@ def stoi_pot(razmeri_s_d_pe_pl):#, dopi ):
 
 
     print(
-        "Полотно", polotno_f,\
+    "Полотно", polotno_f,
     "Багет" , numb_baget25,
      "Угол", razmeri_s_d_pe_pl["ugol_f"] * price["ugol"],
     "вставка", razmeri_s_d_pe_pl["perimetr_f"] * price["vstavka"],
