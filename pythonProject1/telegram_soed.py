@@ -1,6 +1,6 @@
 import json
 import string
-
+import os
 import requests
 import telebot
 import logging
@@ -11,7 +11,8 @@ from aiogram import Bot, types, Dispatcher, executor
 
 
 
-TOKEN = "6224863591:AAGepg6cRgtv9wh0_Db17_sB_tfD81brgxA"
+# TOKEN = "6224863591:AAGepg6cRgtv9wh0_Db17_sB_tfD81brgxA"
+TOKEN = "6063224285:AAF3eblLJGQiK9BWFtHyntaKRs7UdARASxQ"
 bot = Bot(TOKEN)
 dp = Dispatcher(bot)
 
@@ -48,12 +49,13 @@ async def sion_place_command(message : types.Message):
 
 @dp.message_handler()
 async def echo_send(message: types.Message):
-   if {i.lower().translate(str.maketrans
+
+    if {i.lower().translate(str.maketrans
     ('', '', string.punctuation))
     for i in message.text.split(' ')}.intersection(set
     (json.load(open('cenz.json')))) != set():
        await message.reply("мат запрещен")
-       await message.delite()
+       await message.delete()
 
 
 
