@@ -1,29 +1,17 @@
-import turtle
 
-xod={"one_xod":150, "two":"lift"}
-p1 = turtle.Pen()
-p2 = turtle.Pen()
+    def __init__(self, polotno, baget, vstavka, ugli, trub_sto, lite, dict):
+        # можоно воздейстовать на price просто */-+
+        self.polotno320 = polotno
+        self.baget_po_pirimetru = baget
+        self.vstavka=vstavka
+        self.count_uglov_pomeshenie =ugli
+        self.count_trub_stoyka = trub_sto
+        self.count_lite_na_potolke = lite
 
-p1.forward(150)
-p2.left(90)
-p2.forward(90)
-
-
-
-class asortiment_compan_sion:
-    def kto_raditel(self):
-        print("товары для продажи в магазине")
-    pass
-class windows(asortiment_compan_sion):
-
-    pass
-
-class natyznoy_potolok(asortiment_compan_sion):
-    def __init__(self, price):
-        self.my_price = price
     def read_price(self):
         print("Моя цена: %s" % self.my_price)
     def write_price(self, new_price):
+        # можоно воздейстовать на new_price просто */-+
         self.my_price= new_price
     def kto_ya(self):
         print("натяжной потолок")
