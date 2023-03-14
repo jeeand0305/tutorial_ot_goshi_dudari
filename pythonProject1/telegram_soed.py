@@ -16,6 +16,7 @@ bot = Bot(TOKEN)
 dp = Dispatcher(bot)
 
 
+
 async def on_startup(_):# палка в скобках решает
     print("bot v online")
 # __________клиентская часть_____________
