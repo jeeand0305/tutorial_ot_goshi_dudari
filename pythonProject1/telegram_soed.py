@@ -1,3 +1,6 @@
+import json
+import string
+
 import requests
 import telebot
 import logging
@@ -7,103 +10,8 @@ from aiogram import Bot, types, Dispatcher, executor
 # from aiogram.utils import executor
 
 
-# _рабочий код пишет эхо + suka_________________________________
-# bot = telebot.TeleBot\
-#     ("6224863591:AAGepg6cRgtv9wh0_Db17_sB_tfD81brgxA")#(faile_config_telgr1.open_weather_token)
-#
-# @bot.message_handler(content_types=["text"])
-# def eho_test(messag):
-#     bot.send_message(messag.chat.id, messag.text+" suka")
-#
-# bot.polling(none_stop =True)
-# _________________________________________
 
-
-#  бот на погоду не работает апи ошибка____________
-# my_test_one_bot
-# def get_weather(city, open_weather_token ):
-#     try:
-#         r=requests.get(
-#             f"http://api.openweathermap.org/geo/1.0/direct?q=\
-# {city}&appid= \
-# {open_weather_token}"
-#         )
-#         data = r.json()
-#         print(data)
-#     # {city name}, {state code}, {country code}
-#     except Exception as ex:
-#         print(ex)
-#         print("Prover name city")
-
-
-# xz no work _______________________________________
-# def  telegram_bot(open_weather_telegram):
-#     bot = telebot.TeleBot(open_weather_telegram)
-#
-#     @bot.message_handlers(commands=["start"])
-#     def start_message(massage):
-#         bot.send_message(message.chat.id, \
-#         "Hello friend")
-# ______________________________________________
-# def main():
-#     city = input("Введите город: ")
-#     get_weather(city, open_weather_token)
-
-# #probnik po zapusku telegram bota
-
-# ____________________________________________________________
-
-
-# не работает __________________________________
-# MSG= "Програмировал ли ты сегодня , {} ???"
-# TOKKEN = "6224863591:AAGepg6cRgtv9wh0_Db17_sB_tfD81brgxA"
-#
-# bot = Bot(token=TOKKEN)
-# dp = Dispatcher(bot=bot)
-#
-# @dp.messa
-
-# @dp.message_handlers(commands=["start"])
-# async def start_command(message:types.Message):
-#     await message.reply("Привет програмист ")e
-#
-
-
-# async def start_handlera(message:types.Message):
-#     user_id = message.from_user.id
-#     user_name = message.from_user.first_name
-#     user_full_name = message.from_useer.full_name
-#     logging.info(f'{user_id=} {user_full_name=}\
-#     .time.asctime()')
-#     await message.replay\
-#         (f"Привет мартышка, {user_full_name}")
-#
-#     for i in range(10):
-#         time.sleep(2)
-#         await bot.send_message(user_id, \
-#                                MSG.format(user_name))
-#
-# if __name__ == '__main__':
-#     executor.start_polling(dp)
-
-#
-# TOKKEN = "6224863591:AAGepg6cRgtv9wh0_Db17_sB_tfD81brgxA"
-#
-# bot = Bot(token=TOKKEN)
-# dp = Dispatcher(bot=bot)
-#
-# @dp.message_handler(commands=["start"])
-# async def st_com(message:types.Message):
-#     await message.reply("help im ")
-#
-# if __name__ == '__main__':
-#     executor.start_polling(dp)
-
-TOKEN="6063224285:AAF3eblLJGQiK9BWFtHyntaKRs7UdARASxQ"
-# natyznoy_potolok # назвапние бота
-# @natyznoy_potolok_bot
-# natyznoy_potolok_grup0 # назвапние grup
-
+TOKEN = "6224863591:AAGepg6cRgtv9wh0_Db17_sB_tfD81brgxA"
 bot = Bot(TOKEN)
 dp = Dispatcher(bot)
 
@@ -139,8 +47,12 @@ async def sion_place_command(message : types.Message):
 
 @dp.message_handler()
 async def echo_send(message: types.Message):
-   if message.text != "h":
-       await message.answer("И тебе "+ message.text)
+   if {i.lower().translate(str.maketrans
+    ('', '', string.punctuation))
+    for i in message.text.split(' ')}.intersection(set
+    (json.load(open('cenz.json')))) != set():
+       await message.reply("мат запрещен")
+       await message.delite()
 
 
 
