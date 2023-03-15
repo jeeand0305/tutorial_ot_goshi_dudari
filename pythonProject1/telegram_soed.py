@@ -27,7 +27,7 @@ async def command_start(message : types.Message):
         await bot.send_message(message.from_user.id, 'Отличных покупок')
         await message.delete()
     except:
-        await message.reply(\
+        await message.reply( \
             "Общение с ботом через ЛС, нпиши ему:\
             \nhttps://t.me/natyznoy_potolok_bot")
 @dp.message_handler(commands=["Режим_работы"])
