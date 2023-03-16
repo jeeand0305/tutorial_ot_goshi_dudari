@@ -9,6 +9,7 @@ async def on_startup(_):# палка в скобках решает
     print("bot v online")
 
 
+
 client.register_hedler_client(dp)
 other.register_hedler_other(dp)
 
