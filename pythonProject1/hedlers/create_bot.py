@@ -1,7 +1,7 @@
 from aiogram import Bot
 from aiogram.dispatcher import Dispatcher
 # import client, admin, other
-import os
+
 
 
 TOKEN = "6063224285:AAF3eblLJGQiK9BWFtHyntaKRs7UdARASxQ"

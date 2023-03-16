@@ -1,6 +1,4 @@
-import json
-import string
-import os
+import string, json
 import requests
 import telebot
 import logging
@@ -10,16 +8,21 @@ from aiogram import Bot, types, Dispatcher, executor
 # from aiogram.utils import executor
 
 
+# рабочий бот начала без разноса по директориям
 
-# TOKEN = "6224863591:AAGepg6cRgtv9wh0_Db17_sB_tfD81brgxA"
-TOKEN = "6063224285:AAF3eblLJGQiK9BWFtHyntaKRs7UdARASxQ"
+TOKKEN = "6224863591:AAGepg6cRgtv9wh0_Db17_sB_tfD81brgxA"
+TOKEN="6063224285:AAF3eblLJGQiK9BWFtHyntaKRs7UdARASxQ"
+# natyznoy_potolok # назвапние бота
+# @natyznoy_potolok_bot
+# natyznoy_potolok_grup0 # назвапние grup
+
 bot = Bot(TOKEN)
 dp = Dispatcher(bot)
 
 
-
 async def on_startup(_):# палка в скобках решает
     print("bot v online")
+
 # __________клиентская часть_____________
 @dp.message_handler(commands=['start','help'])
 async def command_start(message : types.Message):
@@ -27,9 +30,10 @@ async def command_start(message : types.Message):
         await bot.send_message(message.from_user.id, 'Отличных покупок')
         await message.delete()
     except:
-        await message.reply( \
+        await message.reply(\
             "Общение с ботом через ЛС, нпиши ему:\
             \nhttps://t.me/natyznoy_potolok_bot")
+
 @dp.message_handler(commands=["Режим_работы"])
 async def sion_open_command(message : types.Message):
     await bot.send_message(
@@ -47,9 +51,9 @@ async def sion_place_command(message : types.Message):
 # __________админская часть _____________
 # __________общая частть _________-___
 
+# отлов мата
 @dp.message_handler()
 async def echo_send(message: types.Message):
-
     if {i.lower().translate(str.maketrans
     ('', '', string.punctuation))
     for i in message.text.split(' ')}.intersection(set

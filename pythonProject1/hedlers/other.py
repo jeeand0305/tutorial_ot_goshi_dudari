@@ -12,6 +12,5 @@ async def echo_send(message: types.Message):
        await message.reply("мат запрещен")
        await message.delete()
 
-def register_message_hedler(dp : Dispatcher):
-    dp.register_message_hedler \
-        (echo_send)
+def register_hedler_other(dp : Dispatcher):
+    dp.register_message_handler(echo_send)

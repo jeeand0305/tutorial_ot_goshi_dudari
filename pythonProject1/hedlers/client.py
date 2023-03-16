@@ -30,9 +30,6 @@ async def sion_place_command(message : types.Message):
 
 
 def register_hedler_client(dp: Dispatcher):
-   dp.register_message_hedler\
-       (command_start, commands=['start', 'help'])
-   dp.register_message_hedler\
-       (sion_open_command, commands=["Режим_работы"])
-   dp.register_message_hedler\
-       (sion_place_command, commands=["Расположение"])
+   dp.register_message_handler(command_start, commands=['start', 'help'])
+   dp.register_message_handler(sion_open_command, commands=["Режим_работы"])
+   dp.register_message_handler(sion_place_command, commands=["Расположение"])
