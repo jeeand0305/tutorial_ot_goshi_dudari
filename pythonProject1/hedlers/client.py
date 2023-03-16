@@ -26,6 +26,8 @@ async def sion_place_command(message : types.Message):
         message.from_user.id,\
         "ТЦ Азбука ремонта и ТЦ Гвоздь")
 
+
+
 def register_hedler_client(dp: Dispatcher):
    dp.register_message_hedler\
        (command_start, commands=['start', 'help'])

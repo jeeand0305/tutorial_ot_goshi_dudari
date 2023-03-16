@@ -14,5 +14,3 @@ async def echo_send(message: types.Message):
 def register_message_hedler(dp : Dispatcher):
     dp.register_message_hedler \
         (echo_send)
-
-
