@@ -3,7 +3,6 @@ price = {"PK": 2100, "baget": 150, "polotnoMDS_320": 210,
          "BL": 1000, "vstavka": 90, "ugol": 60, "truba_st": 350
 }
 
-
 def decor_float_int(func):
     def wrapper(*args, **kwargs):
         # inaciliziruet function i beryt ie danie
