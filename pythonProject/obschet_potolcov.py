@@ -12,6 +12,7 @@ def decor_float_int(func):
     return wrapper
 
 
+
 @decor_float_int
 def izmer1():
     return input("Введи ширину комноты если нет пиши 0 : ")
