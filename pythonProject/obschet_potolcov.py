@@ -3,13 +3,57 @@ price = {"PK": 2100, "baget": 150, "polotnoMDS_320": 210,
          "BL": 1000, "vstavka": 90, "ugol": 60, "truba_st": 350
 }
 
-shirina = float(input("Введи ширину комноты если нет пиши 0 : "))
-dlina = float(input("Введи длину комноты если нет пиши 0: "))
-s_potolok = float(input("Введи площадь комноты если нет пиши 0:"))
-ugol = int(input("Введи количество углов ели нет пиши 0 :"))
-trub = int(input("Введи количество труб ели нет пиши 0 :"))
-lite= int(input("Введи количество светильников ели нет пиши 0 :"))
-# zaprose_dop_rabot=input("Дополнительные количество работ :")
+
+def decor_float_int(func):
+    def wrapper(*args, **kwargs):
+        # inaciliziruet function i beryt ie danie
+        izm_1 = func(*args, **kwargs)
+        izm_1 = izm_1.replace(',', '.')
+        return float(izm_1)
+    return wrapper
+
+
+@decor_float_int
+def izmer1():
+    return input("Введи ширину комноты если нет пиши 0 : ")
+
+shirina = izmer1()
+
+
+@decor_float_int
+def izmer2():
+    return input("Введи длину комноты если нет пиши 0: ")
+
+dlina = izmer2()
+
+
+@decor_float_int
+def izmer3():
+    return input("Введи площадь комноты если нет пиши 0:")
+
+s_potolok = izmer3()
+
+
+@decor_float_int
+def izmer4():
+    return input("Введи количество углов ели нет пиши 0 :")
+
+ugol = izmer4()
+
+
+@decor_float_int
+def izmer5():
+    return input("Введи количество труб ели нет пиши 0 :")
+
+trub = izmer5()
+
+
+@decor_float_int
+def izmer6():
+    return input("Введи количество светильников ели нет пиши 0 :")
+
+lite = izmer6()
+
 
 # print(zaprose_dop_rabot)
 
