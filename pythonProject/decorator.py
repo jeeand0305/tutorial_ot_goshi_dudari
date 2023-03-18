@@ -39,6 +39,7 @@ def decor_float_int(func):
             if i in numb0_9:
 
 
+
                 print(i)
                 # print(izm_1, "print", type(izm_1))
         return izm_1
