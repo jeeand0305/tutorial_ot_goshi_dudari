@@ -1,6 +1,7 @@
 price = {"PK": 2100, "baget": 150, "polotnoMDS_320": 210,
          "polotnoMDS_4-5": 410, "NO": 500, "lamp": 350,
-         "BL": 1000, "vstavka": 90, "ugol": 60, "truba_st": 350
+         "BL": 1000, "vstavka": 90, "ugol": 60, "truba_st": 350,
+         "brus_al": 300
 }
 
 def decor_float_int(func):
@@ -53,6 +54,12 @@ def izmer6():
 
 lite = izmer6()
 
+@decor_float_int
+def izmer7():
+    return input("Введи 1  если нужна наружная гардина на потолок или 0 если не надо :")
+
+brus = izmer7()
+
 
 # print(zaprose_dop_rabot)
 
@@ -104,11 +111,7 @@ def stoi_pot(razmeri_s_d_pe_pl):#, dopi ):
     numb_baget25= 0 #КРАТНЫ ПАЛКАМ 2,5М
     polotno_f=0
     total = 0
-    # total += razmeri_s_d_pe_pl["s_potolok_f"] * price["polotnoMDS_320"]
-    # # total += razmeri_s_d_pe_pl["s_potolok_f"] * price["polotnoMDS_4-5"]
-
-    # numb_baget25 = razmeri_s_d_pe_pl["perimetr_f"]//2.5
-    # print(numb_baget25, "print(numb_baget25)")
+    total += razmeri_s_d_pe_pl['shirina_f']* price["brus_al"]*brus
     total += razmeri_s_d_pe_pl["ugol_f"]* price["ugol"]
     total += razmeri_s_d_pe_pl["perimetr_f"] * price["vstavka"]
     total += razmeri_s_d_pe_pl["trub_f"] * price["truba_st"]
