@@ -11,8 +11,8 @@ from aiogram.dispatcher.filters import Text
 
 # рабочий бот начала без разноса по директориям
 
-TOKKEN = "6224863591:AAGepg6cRgtv9wh0_Db17_sB_tfD81brgxA"
-TOKEN="6063224285:AAF3eblLJGQiK9BWFtHyntaKRs7UdARASxQ"
+TOKKEN = "6224863591:AAGepg6cRgtv9wh0_Db17_sB_tfD81brgxA"#my_test_bot
+TOKEN="6063224285:AAF3eblLJGQiK9BWFtHyntaKRs7UdARASxQ"#natyznie potol
 # natyznoy_potolok # назвапние бота
 # @natyznoy_potolok_bot
 # natyznoy_potolok_grup0 # назвапние grup
@@ -28,18 +28,18 @@ async def on_startup(_):# палка в скобках решает
 @dp.message_handler(commands=['start'])
 async def command_start(message : types.Message):
     try:
-        await bot.send_message(message.from_user.id,\
-                               'Здравствуйте рад буду помочь')
-        async def keybord_bot(message: types.Message):
-            key_batt = types.ReplyKeyboardMarkup(resize_keyboard=True)
-            key_batt1 = 'Калькулятор потолка'
-            key_batt2 = 'Режим работы'
-            key_batt3 = 'Расположение'
-            key_batt4 = 'Записаться на замер'
-            key_batt.add(key_batt2, key_batt3).add(key_batt1, key_batt4)
-            # reply_markup = keyboard прописывет что вывести перед надписью
-            await message.answer("Какой потолок вас инетересует?", \
-                                 reply_markup=key_batt)
+        # await bot.send_message(message.from_user.id,\
+        #                        'Здравствуйте меня зовут робот Вася пиши ок и я тебе все покажу')
+        # async def keybord_bot(message: types.Message):
+        key_batt = types.ReplyKeyboardMarkup(resize_keyboard=True)
+        key_batt1 = 'Калькулятор потолка'
+        key_batt2 = 'Режим работы'
+        key_batt3 = 'Расположение'
+        key_batt4 = 'Записаться на замер'
+        key_batt.add(key_batt2, key_batt3).add(key_batt1, key_batt4)
+        # reply_markup = keyboard прописывет что вывести перед надписью
+        await message.answer('Здравствуйте меня зовут робот Вася пиши ок и я тебе все покажу',
+                    reply_markup=key_batt)
         await message.delete()
     except:
         await message.reply(\
@@ -71,19 +71,20 @@ async def sion_place_command(message : types.Message):
 async def key_sett_zamer(message: types.Message):
     key_batt_1 = types.ReplyKeyboardMarkup(resize_keyboard=True)
     key_locat_req = types.KeyboardButton\
-        (text='Запросить геолакацию', request_location=True)
+        (text='Ваша геолакацию', request_location=True)
     key_conta_req = types.KeyboardButton\
-        (text= 'Запросить контакт', request_contact=True)
+        (text= 'Ваш контакт', request_contact=True)
     key_my_cont = 'Наши контакты'
     key_batt_1.add(key_conta_req, key_locat_req).add(key_my_cont)
     # reply_markup = keyboard прописывет что вывести перед надписью
-    await message.answer("Выберете вариант для связи", \
+    await message.answer("Выберете вариант для связи",
                          reply_markup=key_batt_1)
 
 # nado testit
-# async def my_contakt (lambda message:message.text=='Наши контакты'):
-#     await bot.send_message(message.from_user.id,\
-#         "Наши телефоны / 8 982 118 63 83 / 8 904 833 47 57")
+@dp.message_handler(lambda message:message.text=='Наши контакты')
+async def my_contakt (message: types.Message):
+    await bot.send_message(message.from_user.id,
+                           "Наши телефоны  8 982 118 63 83  8 904 833 47 57")
 
 
 
