@@ -38,7 +38,7 @@ async def command_start(message : types.Message):
         key_batt4 = 'Записаться на замер'
         key_batt.add(key_batt2, key_batt3).add(key_batt1, key_batt4)
         # reply_markup = keyboard прописывет что вывести перед надписью
-        await message.answer('Здравствуйте меня зовут робот Вася пиши ок и я тебе все покажу',
+        await message.answer('Здравствуйте меня зовут робот Вася поехалИ-И-И',
                     reply_markup=key_batt)
         await message.delete()
     except:
@@ -71,20 +71,31 @@ async def sion_place_command(message : types.Message):
 async def key_sett_zamer(message: types.Message):
     key_batt_1 = types.ReplyKeyboardMarkup(resize_keyboard=True)
     key_locat_req = types.KeyboardButton\
-        (text='Ваша геолакацию', request_location=True)
+        (text='Отправить свою локацию 🗺️', request_location=True)
     key_conta_req = types.KeyboardButton\
-        (text= 'Ваш контакт', request_contact=True)
+        (text='Отправить свой контакт ☎️', request_contact=True)
     key_my_cont = 'Наши контакты'
-    key_batt_1.add(key_conta_req, key_locat_req).add(key_my_cont)
+    key_return_v_osnovnoe_menu =types.InlineKeyboardButton\
+        (text='Возврат в меню', callback_data='mainmenu')
+    key_batt_1.add(key_conta_req, key_locat_req)\
+        .add(key_my_cont, key_return_v_osnovnoe_menu)
     # reply_markup = keyboard прописывет что вывести перед надписью
     await message.answer("Выберете вариант для связи",
                          reply_markup=key_batt_1)
+
 
 # nado testit
 @dp.message_handler(lambda message:message.text=='Наши контакты')
 async def my_contakt (message: types.Message):
     await bot.send_message(message.from_user.id,
-                           "Наши телефоны  8 982 118 63 83  8 904 833 47 57")
+                           "Наши телефоны  8 982 118 63 83       8 904 833 47 57")
+
+
+@dp.message_handler(lambda message:message.text=='Возврат в меню')
+async def my_contakt (message: types.Message):
+    await bot.send_message(message.from_user.id, "/start")
+    await message.reply ("/start")
+    await message.delete()
 
 
 
