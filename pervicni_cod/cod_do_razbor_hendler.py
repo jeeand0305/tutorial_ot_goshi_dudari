@@ -4,6 +4,10 @@ import logging
 import time
 from aiogram import Bot, types, Dispatcher, executor
 from aiogram.dispatcher.filters import Text
+from aiogram.types import ReplyKeyboardRemove, \
+    ReplyKeyboardMarkup, KeyboardButton, \
+    InlineKeyboardMarkup, InlineKeyboardButton
+
 # from aiogram.utils import executor
 # resurs
 # https://mastergroosha.github.io/aiogram-2-guide/buttons/
@@ -38,7 +42,7 @@ async def command_start(message : types.Message):
         key_batt4 = 'Записаться на замер'
         key_batt.add(key_batt2, key_batt3).add(key_batt1, key_batt4)
         # reply_markup = keyboard прописывет что вывести перед надписью
-        await message.answer('Здравствуйте меня зовут робот Вася поехалИ-И-И',
+        await message.answer('Здравствуйте 👋 меня зовут робот Вася поехалИ-И-И',
                     reply_markup=key_batt)
         await message.delete()
     except:
@@ -66,6 +70,7 @@ async def sion_place_command(message : types.Message):
         "ТЦ Азбука ремонта и ТЦ Гвоздь")
 
 
+
 @dp.message_handler(lambda message:\
                             message.text=='Записаться на замер')
 async def key_sett_zamer(message: types.Message):
@@ -76,7 +81,7 @@ async def key_sett_zamer(message: types.Message):
         (text='Отправить свой контакт ☎️', request_contact=True)
     key_my_cont = 'Наши контакты'
     key_return_v_osnovnoe_menu =types.InlineKeyboardButton\
-        (text='Возврат в меню', callback_data='mainmenu')
+        (text='Возврат в меню', callback_data='command_start')
     key_batt_1.add(key_conta_req, key_locat_req)\
         .add(key_my_cont, key_return_v_osnovnoe_menu)
     # reply_markup = keyboard прописывет что вывести перед надписью
@@ -90,12 +95,12 @@ async def my_contakt (message: types.Message):
     await bot.send_message(message.from_user.id,
                            "Наши телефоны  8 982 118 63 83       8 904 833 47 57")
 
-
-@dp.message_handler(lambda message:message.text=='Возврат в меню')
-async def my_contakt (message: types.Message):
-    await bot.send_message(message.from_user.id, "/start")
-    await message.reply ("/start")
-    await message.delete()
+# Нужно отладить бота для возврат в главное меню
+# @dp.message_handler(lambda message:message.text=='Возврат в меню')
+# async def my_contakt (message: types.Message):
+#     await bot.send_message(message.from_user.id, "/start")
+#     await message.reply ("/start")
+#     await message.delete()
 
 
 
@@ -116,6 +121,8 @@ async def echo_send(message: types.Message):
 
 
 executor.start_polling(dp, skip_updates=True, on_startup=on_startup)
+
+
 
 # airogram rabochi cod
 # @dp.message_handler()

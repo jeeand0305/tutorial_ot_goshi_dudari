@@ -4,8 +4,7 @@ price = {"PK": 2100, "baget": 150, "polotnoMDS_320": 210,
          "brus_al": 300
 }
 
-def decor_float_int(func):
-    def wrapper(*args, **kwargs):
+def decor_float_int(func):    def wrapper(*args, **kwargs):
         # inaciliziruet function i beryt ie danie
         izm_1 = func(*args, **kwargs)
         izm_1 = izm_1.replace(',', '.')
