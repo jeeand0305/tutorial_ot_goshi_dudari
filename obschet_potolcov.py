@@ -1,5 +1,7 @@
-price = {"PK": 2100, "baget": 150, "polotnoMDS_320": 210,
-    "polotnoMDS_3.6": 380, "polotnoMDS_4-5": 410, "NO": 500,
+
+price = {"PK": 2100, "baget": 150, "polotnoMDS_320":210 ,
+    "polotnoMDS_3.6": 380, "polotnoMDS_4-5": 410, "premium_3.6": 390,
+    "premium_5": 480, "NO": 500,
     "lamp": 350, "BL": 1000, "vstavka": 90, "ugol": 60, "truba_st": 350,
     "brus_al": 300
 }
@@ -12,6 +14,12 @@ def decor_float_int(func):
         return float(izm_1)
     return wrapper
 
+
+@decor_float_int
+def marca_polotna():
+    return input("выбери потлотно нажми цифру classic-1, premium-2, evoliyion-3 : ")
+
+shirina = marca_polotna()
 
 @decor_float_int
 def izmer1():
@@ -116,8 +124,8 @@ def stoi_pot(razmeri_s_d_pe_pl):#, dopi ):
     total += razmeri_s_d_pe_pl["perimetr_f"] * price["vstavka"]
     total += razmeri_s_d_pe_pl["trub_f"] * price["truba_st"]
     total += razmeri_s_d_pe_pl["lite_f"] * price["lamp"]
-    if razmeri_s_d_pe_pl['shirina_f'] < 3.6:
 
+    if razmeri_s_d_pe_pl['shirina_f'] < 3.6:
         polotno_f= razmeri_s_d_pe_pl["s_potolok_f"] * price["polotnoMDS_320"]
         total+=polotno_f
     elif 3.6 < razmeri_s_d_pe_pl['shirina_f'] < 4.6:
@@ -130,6 +138,8 @@ def stoi_pot(razmeri_s_d_pe_pl):#, dopi ):
     else:
         polotno_f = razmeri_s_d_pe_pl["s_potolok_f"] * price["polotnoMDS_4-5"]
         total += polotno_f
+
+
 
     # сдвинуть обсчет ниже если есть парящий потолок или \
     # теневой с вычетом длины из периметра и пересчет
