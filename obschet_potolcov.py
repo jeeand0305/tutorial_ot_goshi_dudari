@@ -1,10 +1,11 @@
 price = {"PK": 2100, "baget": 150, "polotnoMDS_320": 210,
-         "polotnoMDS_4-5": 410, "NO": 500, "lamp": 350,
-         "BL": 1000, "vstavka": 90, "ugol": 60, "truba_st": 350,
-         "brus_al": 300
+    "polotnoMDS_3.6": 380, "polotnoMDS_4-5": 410, "NO": 500,
+    "lamp": 350, "BL": 1000, "vstavka": 90, "ugol": 60, "truba_st": 350,
+    "brus_al": 300
 }
 
-def decor_float_int(func):    def wrapper(*args, **kwargs):
+def decor_float_int(func):
+    def wrapper(*args, **kwargs):
         # inaciliziruet function i beryt ie danie
         izm_1 = func(*args, **kwargs)
         izm_1 = izm_1.replace(',', '.')
@@ -35,7 +36,7 @@ s_potolok = izmer3()
 
 @decor_float_int
 def izmer4():
-    return input("Введи количество углов ели нет пиши 0 :")
+    return input("Введи количество углов еcли нет пиши 0 :")
 
 ugol = izmer4()
 
@@ -116,11 +117,19 @@ def stoi_pot(razmeri_s_d_pe_pl):#, dopi ):
     total += razmeri_s_d_pe_pl["trub_f"] * price["truba_st"]
     total += razmeri_s_d_pe_pl["lite_f"] * price["lamp"]
     if razmeri_s_d_pe_pl['shirina_f'] < 3.6:
+
         polotno_f= razmeri_s_d_pe_pl["s_potolok_f"] * price["polotnoMDS_320"]
         total+=polotno_f
-    elif razmeri_s_d_pe_pl['shirina_f'] > 3.6:
+    elif 3.6 < razmeri_s_d_pe_pl['shirina_f'] < 4.6:
+
+        polotno_f= razmeri_s_d_pe_pl["s_potolok_f"] * price["polotnoMDS_3.6"]
+        total+=polotno_f
+    elif 4.6 < razmeri_s_d_pe_pl['shirina_f'] < 5.8:
         polotno_f= razmeri_s_d_pe_pl["s_potolok_f"] * price["polotnoMDS_4-5"]
         total+=polotno_f
+    else:
+        polotno_f = razmeri_s_d_pe_pl["s_potolok_f"] * price["polotnoMDS_4-5"]
+        total += polotno_f
 
     # сдвинуть обсчет ниже если есть парящий потолок или \
     # теневой с вычетом длины из периметра и пересчет
