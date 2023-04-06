@@ -127,27 +127,29 @@ async def get_messange(message):
     else:
         bot.send_message(message.from_user.id, value, reply_markup='keyboard')
 
-@dp.callback_query_handlers(func=lambda call: True)
-async def analis_danih_s_calculator(query):
-    global value, old_value
-    date= query.date
-    if date == "no":
-        pass
-    elif date == 'C':
-        value =''
-    elif date == '=':
-        value = str(eval(value))
-    else:
-        value+=date
+# @dp.
 
-    if value != old_value:
-        if value=='':
-            bot.edit_message_text(chat_id=query.message.chat.id, \
-            message_id=query.massage.id, text='0', reply_markup='keyboard')
-        else:
-            bot.edit_message_text(chat_id=query.message.chat.id,\
-            message_id=query.massage.id, text=value,reply_markup='keyboard')
-    old_value = value
+# @dp.callback_query_handler(func=lambda call: True)
+# async def analis_danih_s_calculator(query):
+#     global value, old_value
+#     date= query.date
+#     if date == "no":
+#         pass
+#     elif date == 'C':
+#         value =''
+#     elif date == '=':
+#         value = str(eval(value))
+#     else:
+#         value+=date
+#
+#     if value != old_value:
+#         if value=='':
+#             bot.edit_message_text(chat_id=query.message.chat.id, \
+#             message_id=query.massage.id, text='0', reply_markup='keyboard')
+#         else:
+#             bot.edit_message_text(chat_id=query.message.chat.id,\
+#             message_id=query.massage.id, text=value,reply_markup='keyboard')
+#     old_value = value
 
-# if __n/ame__ == '__main__':
+# if __name__ == '__main__':
 executor.start_polling(dp, skip_updates=True, on_startup=on_startup)
