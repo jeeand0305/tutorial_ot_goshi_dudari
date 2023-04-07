@@ -27,15 +27,28 @@ dp = Dispatcher(bot)
 async def on_startup(_):# палка в скобках решает
     print("bot v online")
 
-@dp.message_handler(commands=("start"))
+# рабочий код
+@dp.message_handler(commands="start")
 async def cmd_start(message: types.Message):
-    kb = [
-        [types.KeyboardButton(text="С пюрешкой")],
-        [types.KeyboardButton(text="Без пюрешки")]
-    ]
-    keyboard = types.ReplyKeyboardMarkup(keyboard=kb)
+    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    buttons = ["С пюрешкой", "Без пюрешки"]
+    keyboard.add(*buttons)
     await message.answer("Как подавать котлеты?", reply_markup=keyboard)
 
+
+sbor_input_2 = []
+# рабочий код
+@dp.message_handler(commands="polotno")
+async def cmd_start(message: types.Message):
+    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    buttons = ["матовое", "сатин","глянец"]
+    keyboard.add(*buttons)
+    await message.answer("Какок полтотно вы выберете?", reply_markup=keyboard)
+    @dp.message_handler()  # func = lambda message: True)
+    async def answer_to_user(message):
+        global sbor_input_2
+        sbor_input_2.append(message.text)
+        print(message, sbor_input_2)
 
 
 # обкат инлайн кнопок которые задают определеное действие
