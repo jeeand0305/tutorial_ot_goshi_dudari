@@ -35,20 +35,44 @@ async def cmd_start(message: types.Message):
     keyboard.add(*buttons)
     await message.answer("Как подавать котлеты?", reply_markup=keyboard)
 
+request_u_users={
+    1:"Прошу вас учесть данные нужно вводить в метрах пример\
+     (1100мм это 1,1м) метры можете не писать я вас и так пойму пиши (ок)",
+    2:"Введи ширину комноты если нет пиши 0 :",
+    3:"Введи длину комноты если нет пиши 0:",
+    4:"Введи площадь комноты если нет пиши 0:",
+    5:"Введи количество углов еcли нет пиши 0 :",
+    6:"Введи количество труб ели нет пиши 0 :",
+    7:"Введи количество светильников ели нет пиши 0 :",
+    8:"Введи 1 если нужна наружная гардина на потолок или 0 если не надо :",
+    9:"Ну и задали вы мне задачку схожжу посчитаю"
+}
 
 sbor_input_2 = []
 # рабочий код
+# Нужно доделать
+# в случае ошибки при наборе просил позвонить в компанию для просчета
+#  закинуть собранные данные на расчет
+# ну и выдать просчет данных
+
 @dp.message_handler(commands="polotno")
 async def cmd_start(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
     buttons = ["матовое", "сатин","глянец"]
     keyboard.add(*buttons)
     await message.answer("Какок полтотно вы выберете?", reply_markup=keyboard)
-    @dp.message_handler()  # func = lambda message: True)
-    async def answer_to_user(message):
-        global sbor_input_2
-        sbor_input_2.append(message.text)
-        print(message, sbor_input_2)
+    if len(sbor_input_2) < len(request_u_users):
+        @dp.message_handler(lambda message: message.text != None)
+        async def answer_to_user(message):
+            global sbor_input_2
+            sbor_input_2.append(message.text)
+            # if len(sbor_input_2)<len(request_u_users):
+            await message.answer(request_u_users[len(sbor_input_2)])
+            print( sbor_input_2)
+    # @dp.message_handler(lambda message: message.text == "Ну и задали вы мне задачку схожжу посчитаю")
+
+
+
 
 
 # обкат инлайн кнопок которые задают определеное действие
