@@ -91,7 +91,7 @@ def poluchil_tuple_shirnu_dlinu_perim_ploshad():
         perimetr_f = (dlina_f+shirina_f)*2
         if dlina_f < shirina_f:
             dlina_f, shirina_f = shirina_f, dlina_f
-    elif dlina_f > 0 and s_potolok:#>0 or :
+    elif dlina_f > 0 and s_potolok_f:#>0 or :
         shirina_f = s_potolok_f / dlina_f
         perimetr_f = (dlina_f+shirina_f)*2
         if dlina_f < shirina_f:
