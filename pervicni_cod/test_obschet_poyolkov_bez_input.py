@@ -14,70 +14,23 @@ def decor_float_int(func):
         return float(izm_1)
     return wrapper
 
-#
-# @decor_float_int
-# def izmer1():
-#     return input("Введи ширину комноты если нет пиши 0 : ")
-#
-# shirina = izmer1()
-#
-#
-# @decor_float_int
-# def izmer2():
-#     return input("Введи длину комноты если нет пиши 0: ")
-#
-# dlina = izmer2()
-#
-#
-# @decor_float_int
-# def izmer3():
-#     return input("Введи площадь комноты если нет пиши 0:")
-#
-# s_potolok = izmer3()
-#
-#
-# @decor_float_int
-# def izmer4():
-#     return input("Введи количество углов ели нет пиши 0 :")
-#
-# ugol = izmer4()
-#
-#
-# @decor_float_int
-# def izmer5():
-#     return input("Введи количество труб ели нет пиши 0 :")
-#
-# trub = izmer5()
-#
-#
-# @decor_float_int
-# def izmer6():
-#     return input("Введи количество светильников ели нет пиши 0 :")
-#
-# lite = izmer6()
-#
-# @decor_float_int
-# def izmer7():
-#     return input("Введи 1  если нужна наружная гардина на потолок или 0 если не надо :")
-#
-# brus = izmer7()
+def privet(dano):
+    print("hello", dano)
 
+def poluchil_tuple_shirnu_dlinu_perim_ploshad(list_is_telegram):
+    dlina = list_is_telegram[3].replace(',', '.')
+    shirina = list_is_telegram[2].replace(',', '.')
+    s_potolok = list_is_telegram[4].replace(',', '.')
+    ugol = list_is_telegram[5].replace(',', '.')
+    trub = list_is_telegram[6].replace(',', '.')
+    lite = list_is_telegram[7].replace(',', '.')
 
-# print(zaprose_dop_rabot)
-
-def poluchil_tuple_shirnu_dlinu_perim_ploshad():
-    # dlina_f = dlina
-    # shirina_f = shirina
-    # s_potolok_f = s_potolok
-    # ugol_f = ugol
-    # trub_f = trub
-    # lite_f = lite
-    dlina_f = 6
-    shirina_f = 2.5
-    s_potolok_f = 0
-    ugol_f = 4
-    trub_f = 2
-    lite_f = 2
+    dlina_f = float(dlina)
+    shirina_f = float(shirina)
+    s_potolok_f = float(s_potolok)
+    ugol_f = float(ugol)
+    trub_f = float(trub)
+    lite_f = float(lite)
     perimetr_f=0
     shi_dli_per_plo = {}
     # if shirina > 0 and dlina > 0:
@@ -87,7 +40,7 @@ def poluchil_tuple_shirnu_dlinu_perim_ploshad():
         # замена ширины и длины между собой
         if dlina_f <= shirina_f:
             dlina_f, shirina_f = shirina_f, dlina_f
-    elif shirina > 0 and s_potolok:#>0 or dlina > 0:
+    elif shirina_f > 0 and s_potolok_f:#>0 or dlina > 0:
         dlina_f = s_potolok_f / shirina_f
         perimetr_f = (dlina_f+shirina_f)*2
         if dlina_f < shirina_f:
@@ -98,7 +51,7 @@ def poluchil_tuple_shirnu_dlinu_perim_ploshad():
         if dlina_f < shirina_f:
             dlina_f, shirina_f = shirina_f, dlina_f
     # elif shirina > 0 and dlina > 0 or s_potolok>0:
-    elif shirina_f > 0 and dlina_f > 0 or s_potolok > 0:
+    elif shirina_f > 0 and dlina_f > 0 or s_potolok_f > 0:
         dlina_f = 4
         shirina_f = s_potolok_f / dlina_f
         perimetr_f = (dlina_f + shirina_f) * 2
@@ -115,9 +68,13 @@ def poluchil_tuple_shirnu_dlinu_perim_ploshad():
     print(shi_dli_per_plo)
     return shi_dli_per_plo
 
-razmeri_s_d_pe_pl=poluchil_tuple_shirnu_dlinu_perim_ploshad()
+# # dan=['сатин', 'ok', '2', '2', '0', '4', '2', '2', '0']
+# dan2=['cfnb', 'jr', '0', '0', '13.6', '4', '1', '2', '0']
+# razmeri_s_d_pe_pl=poluchil_tuple_shirnu_dlinu_perim_ploshad(dan2)
+# poluchil_tuple_shirnu_dlinu_perim_ploshad(['сатин', 'ok', '2', '2', '0', '4', '2', '2', '0'])
 
 def stoi_pot(razmeri_s_d_pe_pl):#, dopi ):
+    total_dict={}
     # brus_f=brus
     brus_f=0
     numb_baget25= 0 #КРАТНЫ ПАЛКАМ 2,5М
@@ -143,7 +100,8 @@ def stoi_pot(razmeri_s_d_pe_pl):#, dopi ):
     elif razmeri_s_d_pe_pl["perimetr_f"]%2.5!=0:
         numb_baget25 = (razmeri_s_d_pe_pl["perimetr_f"]//2.5+1)*2.5 * price["baget"]
         total += numb_baget25
-
+    total_dict[1]=total
+    total_dict[2] = total*0.85
 
     print(
     "Полотно", polotno_f,
@@ -154,7 +112,8 @@ def stoi_pot(razmeri_s_d_pe_pl):#, dopi ):
         "светильники", razmeri_s_d_pe_pl["lite_f"] * price["lamp"]
     )
     print("стоимость потолка" , total , " потолка со скидкой 15% ", total*0.85, "руб.")
+    return total_dict
 
-stoi_pot(razmeri_s_d_pe_pl)
+# stoi_pot(razmeri_s_d_pe_pl)
 
 # print(zaprose_dop_rabot)
