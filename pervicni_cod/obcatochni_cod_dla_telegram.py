@@ -2,6 +2,7 @@ import string, json
 # import requests
 import logging
 import time
+import test_obschet_poyolkov_bez_input
 from aiogram import Bot, types, Dispatcher, executor
 from aiogram.dispatcher.filters import Text
 from aiogram.types import ReplyKeyboardRemove, \
@@ -57,18 +58,47 @@ sbor_input_2 = []
 
 @dp.message_handler(commands="polotno")
 async def cmd_start(message: types.Message):
+    # try:
+    global sbor_input_2
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
     buttons = ["матовое", "сатин","глянец"]
     keyboard.add(*buttons)
     await message.answer("Какок полтотно вы выберете?", reply_markup=keyboard)
-    if len(sbor_input_2) < len(request_u_users):
-        @dp.message_handler(lambda message: message.text != None)
-        async def answer_to_user(message):
-            global sbor_input_2
-            sbor_input_2.append(message.text)
-            # if len(sbor_input_2)<len(request_u_users):
+
+    # if len(sbor_input_2) < len(request_u_users):
+    @dp.message_handler(lambda message: message.text != None)
+    async def answer_to_user(message):
+        global sbor_input_2
+        sbor_input_2.append(message.text)
+        # if len(sbor_input_2)<len(request_u_users):
+        if len(sbor_input_2) < len(request_u_users)+1:
             await message.answer(request_u_users[len(sbor_input_2)])
             print( sbor_input_2)
+
+        if len(sbor_input_2) == 9:#len(request_u_users):
+            # global sbor_input_2
+            result_stoimosti_potolka={}
+            # danie_na_oschet=[]
+            print(sbor_input_2, "вторая проверка")
+            danie_na_oschet = sbor_input_2
+
+            dan_dict = test_obschet_poyolkov_bez_input.\
+            poluchil_tuple_shirnu_dlinu_perim_ploshad(danie_na_oschet)
+            price_poto_result = test_obschet_poyolkov_bez_input. \
+                stoi_pot(dan_dict)
+
+            if price_poto_result !=None:
+                # price_gotovi="Стомость потолка без скидки ",price_poto_result[1],
+                #              "cтомость потолка co скидкoй -15% ",price_poto_result[2]
+                await message.answer(f"Стомость потолка без скидки {price_poto_result[1]}\
+                cтомость потолка co скидкoй -15% {price_poto_result[2]}")
+            sbor_input_2 = []
+
+    # except Exception:
+    #     await message.answer("Что то пошло не так")
+
+
+
     # @dp.message_handler(lambda message: message.text == "Ну и задали вы мне задачку схожжу посчитаю")
 
 
