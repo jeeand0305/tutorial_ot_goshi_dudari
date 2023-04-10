@@ -1,6 +1,7 @@
 import string, json
 # import requests
 import logging
+import random
 import time
 import test_obschet_poyolkov_bez_input
 from aiogram import Bot, types, Dispatcher, executor
@@ -8,6 +9,7 @@ from aiogram.dispatcher.filters import Text
 from aiogram.types import ReplyKeyboardRemove, \
     ReplyKeyboardMarkup, KeyboardButton, \
     InlineKeyboardMarkup, InlineKeyboardButton
+
 
 # from aiogram.utils import executor
 # resurs
@@ -194,6 +196,18 @@ async def get_messange(message):
     else:
         bot.send_message(message.from_user.id, value, reply_markup='keyboard')
 
+
+@dp.message_handler(commands="random")
+async def cmd_random(message: types.Message):
+    keyboard = types.InlineKeyboardMarkup()
+    keyboard.add(types.InlineKeyboardButton(text="Нажми меня", callback_data="random_value"))
+    await message.answer("Нажмите на кнопку, чтобы бот отправил число от 1 до 10", reply_markup=keyboard)
+
+
+
+@dp.callback_query_handler(text="random_value")
+async def send_random_value(callback: types.CallbackQuery):
+    await callback.message.answer(str(randint(1, 10)))
 # @dp.
 
 # @dp.callback_query_handler(func=lambda call: True)
