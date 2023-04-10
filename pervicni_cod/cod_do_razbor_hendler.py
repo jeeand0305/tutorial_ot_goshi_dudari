@@ -2,6 +2,7 @@ import string, json
 import requests
 import logging
 import time
+import test_obschet_poyolkov_bez_input
 from aiogram import Bot, types, Dispatcher, executor
 from aiogram.dispatcher.filters import Text
 from aiogram.types import ReplyKeyboardRemove, \
@@ -32,6 +33,23 @@ async def on_startup(_):# палка в скобках решает
 @dp.message_handler(commands=['start'])
 async def command_start(message : types.Message):
     try:
+        batton_one = [types.InlineKeyboardButton \
+            (text='ПОЕХАЛИИИИ', callback_data='go')]
+        keyboard = types.InlineKeyboardMarkup(row_width=5)
+        keyboard.row(*batton_one)
+        await message.answer("Здравствуйте 👋 меня зовут робот \
+        Вася я предстовлю компанию СИОН", reply_markup=keyboard)
+        # await message.answer(" Жми ПОЕХАЛИИИИ я тебе все покажу")
+    except:
+        await message.reply(
+            "Общение с ботом через ЛС, нпиши ему:\
+            \nhttps://t.me/natyznoy_potolok_bot")
+
+
+
+@dp.message_handler(lambda message: message.text == 'go')
+async def command_start(message : types.Message):
+    try:
         # await bot.send_message(message.from_user.id,\
         #                        'Здравствуйте меня зовут робот Вася пиши ок и я тебе все покажу')
         # async def keybord_bot(message: types.Message):
@@ -42,13 +60,21 @@ async def command_start(message : types.Message):
         key_batt4 = 'Записаться на замер'
         key_batt.add(key_batt2, key_batt3).add(key_batt1, key_batt4)
         # reply_markup = keyboard прописывет что вывести перед надписью
-        await message.answer('Здравствуйте 👋 меня зовут робот Вася поехалИ-И-И',
-                    reply_markup=key_batt)
+        await message.answer('Главное меню', reply_markup=key_batt)
         await message.delete()
     except:
         await message.reply(\
             "Общение с ботом через ЛС, нпиши ему:\
             \nhttps://t.me/natyznoy_potolok_bot")
+
+
+
+
+@dp.message_handler(lambda message: message.text == "Калькулятор потолка")
+async def sion_place_command(message : types.Message):
+    await bot.send_message(
+        message.from_user.id,\
+        "Посчитать стоимость потолка")
 
 
 
@@ -74,14 +100,16 @@ async def sion_place_command(message : types.Message):
 @dp.message_handler(lambda message:\
                             message.text=='Записаться на замер')
 async def key_sett_zamer(message: types.Message):
+    key_return_v_osnovnoe_menu = types.InlineKeyboardButton \
+        (text='Возврат в меню', callback_data='/start')
     key_batt_1 = types.ReplyKeyboardMarkup(resize_keyboard=True)
     key_locat_req = types.KeyboardButton\
         (text='Отправить свою локацию 🗺️', request_location=True)
     key_conta_req = types.KeyboardButton\
         (text='Отправить свой контакт ☎️', request_contact=True)
     key_my_cont = 'Наши контакты'
-    key_return_v_osnovnoe_menu =types.InlineKeyboardButton\
-        (text='Возврат в меню', callback_data='command_start')
+    # key_return_v_osnovnoe_menu =types.InlineKeyboardButton\
+    #     (text='Возврат в меню', callback_data='/start')
     key_batt_1.add(key_conta_req, key_locat_req)\
         .add(key_my_cont, key_return_v_osnovnoe_menu)
     # reply_markup = keyboard прописывет что вывести перед надписью
