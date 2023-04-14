@@ -58,46 +58,47 @@ sbor_input_2 = []
 #  закинуть собранные данные на расчет
 # ну и выдать просчет данных
 
-@dp.message_handler(commands="polotno")
+@dp.message_handler(lambda message:message.text=="Без пюрешки")
 async def cmd_start(message: types.Message):
     # try:
     global sbor_input_2
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    buttons = ["матовое", "сатин","глянец"]
+    buttons = ["матовое", "сатин", "глянец"]
     keyboard.add(*buttons)
     await message.answer("Какок полтотно вы выберете?", reply_markup=keyboard)
 
-    # if len(sbor_input_2) < len(request_u_users):
+# if len(sbor_input_2) < len(request_u_users):
+@dp.message_handler(lambda message: message.text in ["матовое", "сатин","глянец"])
+async def answer_to_user_polotno(message):
+    global sbor_input_2
+    sbor_input_2.append(message.text)
+    if len(sbor_input_2) < len(request_u_users) + 1:
+        await message.answer(request_u_users[len(sbor_input_2)])
     @dp.message_handler(lambda message: message.text != None)
-    async def answer_to_user(message):
+    async def answer_to_user_dlin(message):
         global sbor_input_2
         sbor_input_2.append(message.text)
-        # if len(sbor_input_2)<len(request_u_users):
         if len(sbor_input_2) < len(request_u_users)+1:
-            await message.answer(request_u_users[len(sbor_input_2)])
-            print( sbor_input_2)
-
+           await message.answer(request_u_users[len(sbor_input_2)])
+           print( sbor_input_2)
         if len(sbor_input_2) == 9:#len(request_u_users):
-            # global sbor_input_2
-            result_stoimosti_potolka={}
-            # danie_na_oschet=[]
-            print(sbor_input_2, "вторая проверка")
-            danie_na_oschet = sbor_input_2
-
-            dan_dict = test_obschet_poyolkov_bez_input.\
-            poluchil_tuple_shirnu_dlinu_perim_ploshad(danie_na_oschet)
-            price_poto_result = test_obschet_poyolkov_bez_input. \
-                stoi_pot(dan_dict)
-
-            if price_poto_result !=None:
-                # price_gotovi="Стомость потолка без скидки ",price_poto_result[1],
-                #              "cтомость потолка co скидкoй -15% ",price_poto_result[2]
-                await message.answer(f"Стомость потолка без скидки {price_poto_result[1]}\
-                cтомость потолка co скидкoй -15% {price_poto_result[2]}")
-            sbor_input_2 = []
-
-    # except Exception:
-    #     await message.answer("Что то пошло не так")
+           # global sbor_input_2
+           result_stoimosti_potolka={}
+           # danie_na_oschet=[]
+           print(sbor_input_2, "вторая проверка")
+           danie_na_oschet = sbor_input_2
+           dan_dict = test_obschet_poyolkov_bez_input.\
+           poluchil_tuple_shirnu_dlinu_perim_ploshad(danie_na_oschet)
+           price_poto_result = test_obschet_poyolkov_bez_input. \
+               stoi_pot(dan_dict)
+           if price_poto_result !=None:
+               # price_gotovi="Стомость потолка без скидки ",price_poto_result[1],
+               #              "cтомость потолка co скидкoй -15% ",price_poto_result[2]
+               await message.answer(f"Стомость потолка без скидки {price_poto_result[1]}\
+               cтомость потолка co скидкoй -15% {price_poto_result[2]}")
+           sbor_input_2 = []
+# except Exception:
+#     await message.answer("Что то пошло не так")
 
 
 
@@ -207,7 +208,7 @@ async def cmd_random(message: types.Message):
 
 @dp.callback_query_handler(text="random_value")
 async def send_random_value(callback: types.CallbackQuery):
-    await callback.message.answer(str(randint(1, 10)))
+    await callback.message.answer(str(random.randint(1, 10)))
 # @dp.
 
 # @dp.callback_query_handler(func=lambda call: True)
