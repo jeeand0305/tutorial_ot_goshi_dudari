@@ -31,15 +31,14 @@ async def on_startup(_):# палка в скобках решает
 
 # __________клиентская часть_____________
 @dp.message_handler(commands=['start'])
-async def command_start(message : types.Message):
+async def command_start(message: types.Message):
     try:
-        batton_one = [types.InlineKeyboardButton \
-            (text='ПОЕХАЛИИИИ', callback_data='go')]
-        keyboard = types.InlineKeyboardMarkup(row_width=5)
-        keyboard.row(*batton_one)
+        keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
+        batton_start ='ПОЕХАЛИИИИ'
+        keyboard.add(batton_start)
         await message.answer("Здравствуйте 👋 меня зовут робот \
         Вася я предстовлю компанию СИОН", reply_markup=keyboard)
-        # await message.answer(" Жми ПОЕХАЛИИИИ я тебе все покажу")
+        await message.answer(" Жми ПОЕХАЛИИИИ я тебе все покажу")
     except:
         await message.reply(
             "Общение с ботом через ЛС, нпиши ему:\
@@ -47,12 +46,9 @@ async def command_start(message : types.Message):
 
 
 
-@dp.message_handler(lambda message: message.text == 'go')
+@dp.message_handler(lambda message: message.text == 'ПОЕХАЛИИИИ')
 async def command_start(message : types.Message):
     try:
-        # await bot.send_message(message.from_user.id,\
-        #                        'Здравствуйте меня зовут робот Вася пиши ок и я тебе все покажу')
-        # async def keybord_bot(message: types.Message):
         key_batt = types.ReplyKeyboardMarkup(resize_keyboard=True)
         key_batt1 = 'Калькулятор потолка'
         key_batt2 = 'Режим работы'
@@ -61,20 +57,72 @@ async def command_start(message : types.Message):
         key_batt.add(key_batt2, key_batt3).add(key_batt1, key_batt4)
         # reply_markup = keyboard прописывет что вывести перед надписью
         await message.answer('Главное меню', reply_markup=key_batt)
-        await message.delete()
+        # await message.delete()
     except:
         await message.reply(\
             "Общение с ботом через ЛС, нпиши ему:\
             \nhttps://t.me/natyznoy_potolok_bot")
 
+request_u_users={
+    1:"Прошу вас учесть данные нужно вводить в метрах пример\
+     (14,23) метры можете не писать я вас и так пойму пиши ()",
+    2:"Введи ширину комноты если нет пиши 0 :",
+    3:"Введи длину комноты если нет пиши 0:",
+    4:"Введи площадь комноты если нет пиши 0:",
+    5:"Введи количество углов еcли нет пиши 0 :",
+    6:"Введи количество труб ели нет пиши 0 :",
+    7:"Введи количество светильников ели нет пиши 0 :",
+    8:"Введи 1 если нужна наружная гардина на потолок или 0 если не надо :",
+    9:"Ну и задали вы мне задачку схожжу посчитаю"
+}
 
+sbor_input_2 = []
+# рабочий код
+# Нужно доделать
+# в случае ошибки при наборе просил позвонить в компанию для просчета
+#  закинуть собранные данные на расчет
+# ну и выдать просчет данных
 
+@dp.message_handler(lambda message:message.text=='Калькулятор потолка')
+async def cmd_start(message: types.Message):
+    # try:
+    global sbor_input_2
+    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    buttons = ["матовое", "сатин", "глянец"]
+    keyboard.add(*buttons)
+    await message.answer("Какок полтотно вы выберете?", reply_markup=keyboard)
 
-@dp.message_handler(lambda message: message.text == "Калькулятор потолка")
-async def sion_place_command(message : types.Message):
-    await bot.send_message(
-        message.from_user.id,\
-        "Посчитать стоимость потолка")
+# if len(sbor_input_2) < len(request_u_users):
+@dp.message_handler(lambda message: message.text in ["матовое", "сатин","глянец"])
+async def answer_to_user_polotno(message: types.Message):
+    global sbor_input_2
+    sbor_input_2.append(message.text)
+
+    if len(sbor_input_2) < len(request_u_users) + 1:
+        await message.answer(request_u_users[len(sbor_input_2)])
+    @dp.message_handler(lambda message: message.text != None)
+    async def answer_to_user_dlin(message: types.Message):
+        global sbor_input_2
+        sbor_input_2.append(message.text)
+        if len(sbor_input_2) < len(request_u_users)+1:
+           await message.answer(request_u_users[len(sbor_input_2)])
+           print( sbor_input_2)
+        if len(sbor_input_2) == 9:#len(request_u_users):
+           # global sbor_input_2
+           result_stoimosti_potolka={}
+           # danie_na_oschet=[]
+           print(sbor_input_2, "вторая проверка")
+           danie_na_oschet = sbor_input_2
+           dan_dict = test_obschet_poyolkov_bez_input.\
+           poluchil_tuple_shirnu_dlinu_perim_ploshad(danie_na_oschet)
+           price_poto_result = test_obschet_poyolkov_bez_input. \
+               stoi_pot(dan_dict)
+           if price_poto_result !=None:
+               # price_gotovi="Стомость потолка без скидки ",price_poto_result[1],
+               #              "cтомость потолка co скидкoй -15% ",price_poto_result[2]
+               await message.answer(f"Стомость потолка без скидки {price_poto_result[1]}\
+               cтомость потолка co скидкoй -15% {price_poto_result[2]}")
+           sbor_input_2 = []
 
 
 
