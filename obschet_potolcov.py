@@ -5,13 +5,26 @@ price = {"PK": 2100, "baget": 150, "polotnoMDS_320":210 ,
     "lamp": 350, "BL": 1000, "vstavka": 90, "ugol": 60, "truba_st": 350,
     "brus_al": 300
 }
+list_otbora=['1','2','3','4','5','6','7','8','9','0', '.']
 
 def decor_float_int(func):
     def wrapper(*args, **kwargs):
+        loc_str=''
         # inaciliziruet function i beryt ie danie
         izm_1 = func(*args, **kwargs)
-        izm_1 = izm_1.replace(',', '.')
-        return float(izm_1)
+        izm_1 = izm_1.replace(',', '.').lower()
+        if izm_1[0] in '.':
+            del izm_1[0]
+        for izm_1_one in izm_1:
+            if izm_1_one in list_otbora:
+                loc_str +=izm_1_one
+            # elif izm_1_one not in list_otbora:
+            #     loc_str='0lkj'
+            #     print(loc_str, 'hello2')
+        print(loc_str, 'posled')
+        loc_str = (lambda loc_str: loc_str[1:] if loc_str[0] == '.' else loc_str)(loc_str)
+        print(loc_str, "hello1")
+        return loc_str
     return wrapper
 
 
