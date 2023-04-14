@@ -17,6 +17,7 @@ def decor_float_int(func):
 def privet(dano):
     print("hello", dano)
 
+
 def poluchil_tuple_shirnu_dlinu_perim_ploshad(list_is_telegram):
     dlina = list_is_telegram[3].replace(',', '.')
     shirina = list_is_telegram[2].replace(',', '.')
@@ -24,7 +25,9 @@ def poluchil_tuple_shirnu_dlinu_perim_ploshad(list_is_telegram):
     ugol = list_is_telegram[5].replace(',', '.')
     trub = list_is_telegram[6].replace(',', '.')
     lite = list_is_telegram[7].replace(',', '.')
+    brus = list_is_telegram[8].replace(',', '.')
 
+    brus_f = float(brus)
     dlina_f = float(dlina)
     shirina_f = float(shirina)
     s_potolok_f = float(s_potolok)
@@ -65,6 +68,7 @@ def poluchil_tuple_shirnu_dlinu_perim_ploshad(list_is_telegram):
     shi_dli_per_plo['perimetr_f'] = perimetr_f
     shi_dli_per_plo['s_potolok_f'] = s_potolok_f
     shi_dli_per_plo['lite_f'] = lite_f
+    shi_dli_per_plo['brus_f'] = brus_f
     print(shi_dli_per_plo)
     return shi_dli_per_plo
 
@@ -73,14 +77,17 @@ def poluchil_tuple_shirnu_dlinu_perim_ploshad(list_is_telegram):
 # razmeri_s_d_pe_pl=poluchil_tuple_shirnu_dlinu_perim_ploshad(dan2)
 # poluchil_tuple_shirnu_dlinu_perim_ploshad(['сатин', 'ok', '2', '2', '0', '4', '2', '2', '0'])
 
+
 def stoi_pot(razmeri_s_d_pe_pl):#, dopi ):
     total_dict={}
-    # brus_f=brus
-    brus_f=0
+
+
+    # brus_f=float(brus_f)
     numb_baget25= 0 #КРАТНЫ ПАЛКАМ 2,5М
     polotno_f=0
     total = 0
-    total += razmeri_s_d_pe_pl['shirina_f']* price["brus_al"]*brus_f
+    total += razmeri_s_d_pe_pl['shirina_f']* price["brus_al"]*\
+             razmeri_s_d_pe_pl['brus_f']
     total += razmeri_s_d_pe_pl["ugol_f"]* price["ugol"]
     total += razmeri_s_d_pe_pl["perimetr_f"] * price["vstavka"]
     total += razmeri_s_d_pe_pl["trub_f"] * price["truba_st"]
@@ -109,7 +116,9 @@ def stoi_pot(razmeri_s_d_pe_pl):#, dopi ):
      "Угол", razmeri_s_d_pe_pl["ugol_f"] * price["ugol"],
     "вставка", razmeri_s_d_pe_pl["perimetr_f"] * price["vstavka"],
     "трубы " , razmeri_s_d_pe_pl["trub_f"] * price["truba_st"],
-        "светильники", razmeri_s_d_pe_pl["lite_f"] * price["lamp"]
+        "светильники", razmeri_s_d_pe_pl["lite_f"] * price["lamp"],
+    'Брус под гардину', razmeri_s_d_pe_pl['shirina_f']* price["brus_al"]*\
+             razmeri_s_d_pe_pl['brus_f']
     )
     print("стоимость потолка" , total , " потолка со скидкой 15% ", total*0.85, "руб.")
     return total_dict
