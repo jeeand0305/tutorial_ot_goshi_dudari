@@ -30,13 +30,48 @@ dp = Dispatcher(bot)
 async def on_startup(_):# палка в скобках решает
     print("bot v online")
 
+
 # рабочий код
-@dp.message_handler(commands="start")
-async def cmd_start(message: types.Message):
-    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    buttons = ["С пюрешкой", "Без пюрешки"]
-    keyboard.add(*buttons)
-    await message.answer("Как подавать котлеты?", reply_markup=keyboard)
+# @dp.message_handler(commands="start")
+# async def cmd_start(message: types.Message):
+#     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
+#     buttons = ["С пюрешкой", "Без пюрешки"]
+#     keyboard.add(*buttons)
+#     await message.answer("Как подавать котлеты?", reply_markup=keyboard)
+
+
+@dp.message_handler(commands=['start'])
+async def command_start(message: types.Message):
+    try:
+        keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
+        batton_start ='Меню'
+        keyboard.add(batton_start)
+        await message.answer("Здравствуйте 👋 меня зовут робот \
+        Вася я предстовлю компанию СИОН", reply_markup=keyboard)
+        await message.answer(" Жми 'Меню'я тебе все покажу")
+    except:
+        await message.reply(
+            "Общение с ботом через ЛС, нпиши ему:\
+            \nhttps://t.me/natyznoy_potolok_bot")
+
+
+
+@dp.message_handler(lambda message: message.text == 'Меню')
+async def command_start(message : types.Message):
+    try:
+        key_batt = types.ReplyKeyboardMarkup(resize_keyboard=True)
+        key_batt1 = 'Калькулятор потолка'
+        key_batt2 = 'Режим работы'
+        key_batt3 = 'Расположение'
+        key_batt4 = 'Записаться на замер'
+        key_batt.add(key_batt2, key_batt3).add(key_batt1, key_batt4)
+        # reply_markup = keyboard прописывет что вывести перед надписью
+        await message.answer('Главное меню', reply_markup=key_batt)
+        # await message.delete()
+    except:
+        await message.reply(\
+            "Общение с ботом через ЛС, нпиши ему:\
+            \nhttps://t.me/natyznoy_potolok_bot")
 
 request_u_users={
     1:"Прошу вас учесть данные нужно вводить в метрах пример\
@@ -58,7 +93,7 @@ sbor_input_2 = []
 #  закинуть собранные данные на расчет
 # ну и выдать просчет данных
 
-@dp.message_handler(lambda message:message.text=="Без пюрешки")
+@dp.message_handler(lambda message:message.text=="Калькулятор потолка")
 async def cmd_start(message: types.Message):
     # try:
     global sbor_input_2
@@ -97,18 +132,21 @@ async def answer_to_user_polotno(message):
                await message.answer(f"Стомость потолка без скидки {price_poto_result[1]}\
                cтомость потолка co скидкoй -15% {price_poto_result[2]}")
            sbor_input_2 = []
-# except Exception:
-#     await message.answer("Что то пошло не так")
 
 
+@dp.message_handler(Text(equals='Режим работы'))
+async def sion_open_command(message : types.Message):
+    await bot.send_message(
+        message.from_user.id, " Ежедневно с9-00 до \
+21-00 без Выходных")
 
-    # @dp.message_handler(lambda message: message.text == "Ну и задали вы мне задачку схожжу посчитаю")
 
+@dp.message_handler(lambda message: message.text=='Расположение')
+async def sion_place_command(message : types.Message):
+    await bot.send_message(
+        message.from_user.id,\
+        "ТЦ Азбука ремонта и ТЦ Гвоздь")
 
-
-
-
-# обкат инлайн кнопок которые задают определеное действие
 
 @dp.message_handler(commands="my_content")
 async def cmd_inline_url(message: types.Message):
