@@ -21,10 +21,10 @@ def decor_float_int(func):
             # elif izm_1_one not in list_otbora:
             #     loc_str='0lkj'
             #     print(loc_str, 'hello2')
-        print(loc_str, 'posled')
+        # print(loc_str, 'posled')
         loc_str = (lambda loc_str: loc_str[1:] if loc_str[0] == '.' else loc_str)(loc_str)
-        print(loc_str, "hello1")
-        return loc_str
+        # print(loc_str, "hello1")
+        return float(loc_str)
     return wrapper
 
 
@@ -93,13 +93,13 @@ def poluchil_tuple_shirnu_dlinu_perim_ploshad():
     lite_f = lite
     perimetr_f=0
     shi_dli_per_plo = {}
-    if shirina > 0 and dlina > 0:
+    if shirina_f > 0 and dlina_f > 0:
         s_potolok_f = dlina_f*shirina_f
         perimetr_f = (dlina_f+shirina_f)*2
         # замена ширины и длины между собой
         if dlina_f <= shirina_f:
             dlina_f, shirina_f = shirina_f, dlina_f
-    elif shirina > 0 and s_potolok:#>0 or dlina > 0:
+    elif shirina_f > 0 and s_potolok_f:#>0 or dlina > 0:
         dlina_f = s_potolok_f / shirina_f
         perimetr_f = (dlina_f+shirina_f)*2
         if dlina_f < shirina_f:
