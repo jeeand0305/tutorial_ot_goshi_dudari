@@ -34,11 +34,11 @@ async def on_startup(_):# палка в скобках решает
 async def command_start(message: types.Message):
     try:
         keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
-        batton_start ='ПОЕХАЛИИИИ'
+        batton_start = 'Меню'
         keyboard.add(batton_start)
         await message.answer("Здравствуйте 👋 меня зовут робот \
         Вася я предстовлю компанию СИОН", reply_markup=keyboard)
-        await message.answer(" Жми ПОЕХАЛИИИИ я тебе все покажу")
+        await message.answer(" Жми Меню я тебе все покажу")
     except:
         await message.reply(
             "Общение с ботом через ЛС, нпиши ему:\
@@ -46,7 +46,7 @@ async def command_start(message: types.Message):
 
 
 
-@dp.message_handler(lambda message: message.text == 'ПОЕХАЛИИИИ')
+@dp.message_handler(lambda message: message.text == 'Меню')
 async def command_start(message : types.Message):
     try:
         key_batt = types.ReplyKeyboardMarkup(resize_keyboard=True)
@@ -87,6 +87,7 @@ sbor_input_2 = []
 async def cmd_start(message: types.Message):
     # try:
     global sbor_input_2
+    print(sbor_input_2, "Kалькулятор")#1work
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
     buttons = ["матовое", "сатин", "глянец"]
     keyboard.add(*buttons)
@@ -97,13 +98,15 @@ async def cmd_start(message: types.Message):
 async def answer_to_user_polotno(message: types.Message):
     global sbor_input_2
     sbor_input_2.append(message.text)
-
+    print(sbor_input_2, "матовое")#1work, work2 pishet tolko batton
+    print(len(sbor_input_2) < len(request_u_users) + 1)
     if len(sbor_input_2) < len(request_u_users) + 1:
         await message.answer(request_u_users[len(sbor_input_2)])
     @dp.message_handler(lambda message: message.text != None)
     async def answer_to_user_dlin(message: types.Message):
         global sbor_input_2
         sbor_input_2.append(message.text)
+        print(sbor_input_2, "None")
         if len(sbor_input_2) < len(request_u_users)+1:
            await message.answer(request_u_users[len(sbor_input_2)])
            print( sbor_input_2)
@@ -144,13 +147,13 @@ async def sion_place_command(message : types.Message):
         "ТЦ Азбука ремонта и ТЦ Гвоздь")
 
 
-
 @dp.message_handler(lambda message:\
                             message.text=='Записаться на замер')
 async def key_sett_zamer(message: types.Message):
-    key_return_v_osnovnoe_menu = types.InlineKeyboardButton \
-        (text='Возврат в меню', callback_data='/start')
+#         (text='ПОЕХАЛИИИИ', callback_data='/start')
     key_batt_1 = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    key_return_v_osnovnoe_menu = types.KeyboardButton \
+        (text='Меню') # request_location=True)
     key_locat_req = types.KeyboardButton\
         (text='Отправить свою локацию 🗺️', request_location=True)
     key_conta_req = types.KeyboardButton\
