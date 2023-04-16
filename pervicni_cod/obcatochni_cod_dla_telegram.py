@@ -27,19 +27,12 @@ TOKEN="6063224285:AAF3eblLJGQiK9BWFtHyntaKRs7UdARASxQ"#natyznie potol
 bot = Bot(TOKKEN)
 dp = Dispatcher(bot)
 
+# старт бота прописыват что бот за работал
 async def on_startup(_):# палка в скобках решает
     print("bot v online")
 
 
-# рабочий код
-# @dp.message_handler(commands="start")
-# async def cmd_start(message: types.Message):
-#     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
-#     buttons = ["С пюрешкой", "Без пюрешки"]
-#     keyboard.add(*buttons)
-#     await message.answer("Как подавать котлеты?", reply_markup=keyboard)
-
-
+# Начальная кнопка катороя переносит в меню
 @dp.message_handler(commands=['start'])
 async def command_start(message: types.Message):
     try:
@@ -55,7 +48,8 @@ async def command_start(message: types.Message):
             \nhttps://t.me/natyznoy_potolok_bot")
 
 
-
+# открывает кнопки главного меню который отлавливается\
+# через лянду
 @dp.message_handler(lambda message: message.text == 'Меню')
 async def command_start(message : types.Message):
     try:
@@ -73,12 +67,14 @@ async def command_start(message : types.Message):
             "Общение с ботом через ЛС, нпиши ему:\
             \nhttps://t.me/natyznoy_potolok_bot")
 
-request_u_users={
+# текст для запросов может лучше сделать на один из модуль пока так
+request_u_users = {
     1:"Прошу вас учесть данные нужно вводить в метрах пример\
-     (1100мм это 1,1м) метры можете не писать я вас и так пойму пиши (ок)",
-    2:"Введи ширину комноты если нет пиши 0 :",
-    3:"Введи длину комноты если нет пиши 0:",
-    4:"Введи площадь комноты если нет пиши 0:",
+     (1,3) метры можете не писать я вас и так пойму пиши \
+     понял пиши 1 нет 0",
+    2:"Введи ширину комноты если не знаете пишите 0 :",
+    3:"Введи длину комноты если не знаете пишите 0:",
+    4:"Введи площадь комноты если ввели ширину и длину пишите 0:",
     5:"Введи количество углов еcли нет пиши 0 :",
     6:"Введи количество труб ели нет пиши 0 :",
     7:"Введи количество светильников ели нет пиши 0 :",
@@ -86,29 +82,33 @@ request_u_users={
     9:"Ну и задали вы мне задачку схожжу посчитаю"
 }
 
-sbor_input_2 = []
-# рабочий код
-# Нужно доделать
-# в случае ошибки при наборе просил позвонить в компанию для просчета
-#  закинуть собранные данные на расчет
-# ну и выдать просчет данных
 
+sbor_input_2 = []
+# запуск калькулятор и делает просчет с модуля \
+# test_obschet_poyolkov_bez_input \
+# очень часто вылетел сечас роботал
 @dp.message_handler(lambda message:message.text=="Калькулятор потолка")
 async def cmd_start(message: types.Message):
-    # try:
     global sbor_input_2
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
     buttons = ["матовое", "сатин", "глянец"]
-    keyboard.add(*buttons)
-    await message.answer("Какок полтотно вы выберете?", reply_markup=keyboard)
+    battons_menu = [ 'Меню' ]
+    keyboard.add(*buttons).add(*battons_menu)
+    await message.answer("Выберет полотно если хотите расчитать\
+     стоимость вашего потолка или 'Меню' для возврата\
+      в главное меню ",\
+                         reply_markup=keyboard)
 
-# if len(sbor_input_2) < len(request_u_users):
+#отлавливает наименование полотна и запускает пербор запросов
 @dp.message_handler(lambda message: message.text in ["матовое", "сатин","глянец"])
 async def answer_to_user_polotno(message):
     global sbor_input_2
     sbor_input_2.append(message.text)
     if len(sbor_input_2) < len(request_u_users) + 1:
         await message.answer(request_u_users[len(sbor_input_2)])
+    # собирает все что вы вводите и список полученные данные
+    # переписать чтобы исключить сбор всех даных которые \
+    # не явлются цифрой или запятой
     @dp.message_handler(lambda message: message.text != None)
     async def answer_to_user_dlin(message):
         global sbor_input_2
@@ -148,12 +148,39 @@ async def sion_place_command(message : types.Message):
         "ТЦ Азбука ремонта и ТЦ Гвоздь")
 
 
-@dp.message_handler(commands="my_content")
+@dp.message_handler(lambda message:\
+                            message.text=='Записаться на замер')
+async def key_sett_zamer(message: types.Message):
+    key_batt_1 = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    key_locat_req = types.KeyboardButton\
+        (text='Отправить свою локацию 🗺️', request_location=True)
+    key_conta_req = types.KeyboardButton\
+        (text='Отправить свой контакт ☎️', request_contact=True)
+    key_return_v_osnovnoe_menu = 'Меню'
+    key_my_online = 'Как нас найти в интернете'
+    key_my_cont = 'Наши контакты'
+    key_batt_1.add(key_conta_req, key_locat_req)\
+        .add(key_my_cont, key_my_online)\
+        .add(key_return_v_osnovnoe_menu)
+    # reply_markup = keyboard прописывет что вывести перед надписью
+    await message.answer("Выберете вариант для связи",
+                         reply_markup=key_batt_1)
+
+@dp.message_handler(lambda message:message.text=='Наши контакты')
+async def my_contakt (message: types.Message):
+    await bot.send_message(message.from_user.id,\
+        "Наши телефоны  8 982 118 63 83  8 904 833 47 57")
+
+
+@dp.message_handler(lambda message: \
+                message.text=='Как нас найти в интернете')
 async def cmd_inline_url(message: types.Message):
     # кнопки собираю в список
     buttons = [
-        types.InlineKeyboardButton(text=" my GitHub", url="https://github.com/jeeand0305"),
-        types.InlineKeyboardButton(text="Оф. канал Telegram", url="tg://resolve?domain=telegram")
+        types.InlineKeyboardButton(text="Мы в Контакте",\
+            url="https://vk.com/clubsion18"),
+        types.InlineKeyboardButton(text="Наш сайт",\
+            url="http://sion18.ru/")
     ]
     # Задает ширину строки (row_width=1)
     keyboard = types.InlineKeyboardMarkup(row_width=1)
