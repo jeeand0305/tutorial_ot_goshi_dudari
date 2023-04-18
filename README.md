@@ -1,1 +1,1 @@
-# tutorial_ot_goshi_dudari
+telegram_bot_i_calculator potolca
